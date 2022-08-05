@@ -26,7 +26,7 @@ def window():
 
 
     #font_style
-    normal_text_font = Font(size = 12)
+    normal_text_font = Font(size = 10)
     
     
     #text input
