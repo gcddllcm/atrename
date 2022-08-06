@@ -8,28 +8,28 @@ def generator_click():
     items = items_input.get("1.0", "end-1c")
     items = list(items)
     new_list_counter = 0
-    new_list = [""] * 10000
+    __aspiring = [""] * 10000
     
     #create new list, because the old one was not what we want (old : 1 char = 1 element, new : 1 line = 1 element)
     for i in range(0, len(items), 1):
         if items[i] != "\n":
-            new_list[new_list_counter] += items[i]
+            __aspiring[new_list_counter] += items[i]
         else:
             new_list_counter += 1
     
     #use list comprehension just to get rid of the dummy elements
-    new_list = [e for e in new_list if e != ""]
+    __aspiring = [e for e in __aspiring if e != ""]
     
     #augmentation
-    for j in range(0, len(new_list), 1):
-        if len(new_list[j]) == 1:
-            new_list[j] = "000" + new_list[j]
-        if len(new_list[j]) == 2:
-            new_list[j] = "00" + new_list[j]
-        if len(new_list[j]) == 3:
-            new_list[j] = "0" + new_list[j]
+    for j in range(0, len(__aspiring), 1):
+        if len(__aspiring[j]) == 1:
+            __aspiring[j] = "000" + __aspiring[j]
+        if len(__aspiring[j]) == 2:
+            __aspiring[j] = "00" + __aspiring[j]
+        if len(__aspiring[j]) == 3:
+            __aspiring[j] = "0" + __aspiring[j]
             
-        new_list[j] += ".jpg"
+        __aspiring[j] += ".jpg"
         
     #pop-up window
     root = tk.Tk()
@@ -38,11 +38,11 @@ def generator_click():
     root.geometry("300x300")
     new_list_pop = tk.Listbox(root)
     new_list_pop.pack(side = tk.LEFT, fill = "both", expand = True)
-    for i in range(0, len(new_list), 1) :
-        new_list_pop.insert(i, new_list[i])
+    for i in range(0, len(__aspiring), 1) :
+        new_list_pop.insert(i, __aspiring[i])
     root.mainloop()
         
-    print(new_list, len(new_list))
+    print(__aspiring, len(__aspiring))
 
 
 
@@ -64,9 +64,13 @@ def window():
 
     
     #buttons
-    generator = tk.Button(window, text = "Go!!!", command = generator_click)
-    generator.place(bordermode = tk.OUTSIDE, height = 60, width = 300, x = 0, y = 240)
+    generator = tk.Button(window, text = "See Result", command = generator_click)
+    generator.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 0, y = 240)
     generator["state"] = "normal"
+    
+    __rename = tk.Button(window, text = "Rename")
+    __rename.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 150, y = 240)
+    __rename["state"] = "normal"
     
     
     window.mainloop()
