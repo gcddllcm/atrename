@@ -3,18 +3,46 @@ from tkinter.font import Font
 
 
 
-def click_test():
-    print("click test lmao wtf")
 
-
-
-def _3digits_click():
-    name_len = 3
+def generator_click():
+    items = items_input.get("1.0", "end-1c")
+    items = list(items)
+    new_list_counter = 0
+    new_list = [""] * 10000
     
+    #create new list, because the old one was not what we want (old : 1 char = 1 element, new : 1 line = 1 element)
+    for i in range(0, len(items), 1):
+        if items[i] != "\n":
+            new_list[new_list_counter] += items[i]
+        else:
+            new_list_counter += 1
     
-
-def retrieve_input(text_box):
-    input_value = text_box.get("1", "end-1c")
+    #use list comprehension just to get rid of the dummy elements
+    new_list = [e for e in new_list if e != ""]
+    
+    #augmentation
+    for j in range(0, len(new_list), 1):
+        if len(new_list[j]) == 1:
+            new_list[j] = "000" + new_list[j]
+        if len(new_list[j]) == 2:
+            new_list[j] = "00" + new_list[j]
+        if len(new_list[j]) == 3:
+            new_list[j] = "0" + new_list[j]
+            
+        new_list[j] += ".jpg"
+        
+    #pop-up window
+    root = tk.Tk()
+    root.resizable(width = False, height = False)
+    root.title("Your new files' name")
+    root.geometry("300x300")
+    new_list_pop = tk.Listbox(root)
+    new_list_pop.pack(side = tk.LEFT, fill = "both", expand = True)
+    for i in range(0, len(new_list), 1) :
+        new_list_pop.insert(i, new_list[i])
+    root.mainloop()
+        
+    print(new_list, len(new_list))
 
 
 
@@ -30,45 +58,19 @@ def window():
     
     
     #text input
-    item_input = tk.Text(window)
-    item_input.place(height = 150, width = 300, x = 0, y = 50)
-    
-    _3digits = tk.Button(window, text = "3 Digits")
-    _3digits.place(bordermode = tk.OUTSIDE, height = 30, width = 100, x = 0, y = 200)
-    _3digits["state"] = "normal"
-    _4digits = tk.Button(window, text = "4 Digits")
-    _4digits.place(bordermode = tk.OUTSIDE, height = 30, width = 100, x = 100, y = 200)
-    _4digits["state"] = "normal"
-    _5digits = tk.Button(window, text = "5 Digits")
-    _5digits.place(bordermode = tk.OUTSIDE, height = 30, width = 100, x = 200, y = 200)
-    _5digits["state"] = "normal"
+    global items_input
+    items_input = tk.Text(window)
+    items_input.place(height = 190, width = 300, x = 0, y = 50)
 
-
-    
-    #label
-    file_type_select = tk.Label(window, text = "เลือกสกุลไฟล์ที่ต้องการได้เลยครับ (โดยปกติคือ .jpg ครับ)", font = normal_text_font)
-    file_type_select.place(height = 40, width = 300, y = 230)
-    
     
     #buttons
-    jpg = tk.Button(window, text = ".jpg", command = click_test)
-    jpg.place(bordermode = tk.OUTSIDE, height = 40, width = 100, x = 0, y = 260)
-    jpg["state"] = "normal"
-    
-    png = tk.Button(window, text = ".png", command = click_test)
-    png.place(bordermode = tk.OUTSIDE, height = 40, width = 100, x = 100, y = 260)
-    png["state"] = "normal"
-    
-    pdf = tk.Button(window, text = ".pdf", command = click_test)
-    pdf.place(bordermode = tk.OUTSIDE, height = 40, width = 100, x = 200, y = 260)
-    pdf["state"] = "normal"
+    generator = tk.Button(window, text = "Go!!!", command = generator_click)
+    generator.place(bordermode = tk.OUTSIDE, height = 60, width = 300, x = 0, y = 240)
+    generator["state"] = "normal"
     
     
     window.mainloop()
     
-
-
-
 
 
 if __name__ == '__main__':
