@@ -1,14 +1,26 @@
 import tkinter as tk
 from tkinter.font import Font
+import os
 
 
+def rename():
+    list_dir = os.listdir() #list all files in the current dir
+    list_dir = list(filter(lambda x : x != "AT rename.py", list_dir)) #filtering
+    list_dir = sorted(list_dir) #sorting the list
+
+    #start renaming the files
+    for k in range(0, len(list_dir), 1):
+        os.rename(
+            str(list_dir[k]), str(__aspiring[k])
+        )
 
 
 def generator_click():
-    items = items_input.get("1.0", "end-1c")
-    items = list(items)
+    items = items_input.get("1.0", "end-1c") #retrieve data from the textbox
+    items = list(items) #pack it as a list
     new_list_counter = 0
-    __aspiring = [""] * 10000
+    global __aspiring
+    __aspiring = [""] * 10000 #create the empty list with 10k elements preparing to be adjusted
     
     #create new list, because the old one was not what we want (old : 1 char = 1 element, new : 1 line = 1 element)
     for i in range(0, len(items), 1):
@@ -45,16 +57,11 @@ def generator_click():
     print(__aspiring, len(__aspiring))
 
 
-
 def window():
     window = tk.Tk()
     window.title("AT Rename")
     window.geometry("300x300")
     window.resizable(width = False, height = False)
-
-
-    #font_style
-    normal_text_font = Font(size = 10)
     
     
     #text input
@@ -68,14 +75,13 @@ def window():
     generator.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 0, y = 240)
     generator["state"] = "normal"
     
-    __rename = tk.Button(window, text = "Rename")
+    __rename = tk.Button(window, text = "Rename", command = rename)
     __rename.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 150, y = 240)
     __rename["state"] = "normal"
     
     
     window.mainloop()
     
-
 
 if __name__ == '__main__':
     window()
