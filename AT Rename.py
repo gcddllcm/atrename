@@ -3,6 +3,26 @@ from tkinter.font import Font
 import os
 
 
+def aboutUs():
+    #pop-up window
+    aboutUs_root = tk.Tk()
+    aboutUs_root.resizable(width = False, height = False)
+    aboutUs_root.title("About Us")
+    aboutUs_root.geometry("300x300")
+    label = tk.Label(aboutUs_root, text = "Creator : Champ (AT - Math)\nCreated Date : Aug 4 2022")
+    label.pack(side = tk.LEFT, fill = "both", expand = True)
+    
+    
+def howTo():
+    #pop-up window
+    howTo_root = tk.Tk()
+    howTo_root.resizable(width = False, height = False)
+    howTo_root.title("How to")
+    howTo_root.geometry("300x300")
+    label = tk.Label(howTo_root, text = "1. Place this file in the same folder as your .jpg files\n2. Put (either type or copy paste) number\nin the empty textbox\n3. Hit \"See Result\"\n4. Hit \"Rename\" button")
+    label.pack(side = tk.LEFT, fill = "both", expand = True)
+
+
 def rename():
     list_dir = os.listdir() #list all files in the current dir
     list_dir = list(filter(lambda x : x != "AT rename.py", list_dir)) #filtering
@@ -67,7 +87,7 @@ def window():
     #text input
     global items_input
     items_input = tk.Text(window)
-    items_input.place(height = 190, width = 300, x = 0, y = 50)
+    items_input.place(height = 210, width = 300, x = 0, y = 30)
 
     
     #buttons
@@ -79,6 +99,12 @@ def window():
     __rename.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 150, y = 240)
     __rename["state"] = "normal"
     
+    about_us = tk.Button(window, text = "About Us", command = aboutUs)
+    about_us.place(bordermode = tk.OUTSIDE, height = 30, width = 150, x = 150, y = 0)
+    
+    how_to = tk.Button(window, text = "How to", command = howTo)
+    how_to.place(bordermode = tk.OUTSIDE, height = 30, width = 150, x = 0, y = 0)
+
     
     window.mainloop()
     
