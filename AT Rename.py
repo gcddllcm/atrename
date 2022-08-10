@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter.font import Font
+import sys
 import os
 
 
@@ -9,17 +9,17 @@ def aboutUs():
     aboutUs_root.resizable(width = False, height = False)
     aboutUs_root.title("About Us")
     aboutUs_root.geometry("300x300")
-    label = tk.Label(aboutUs_root, text = "Creator : Champ (AT - Math)\nCreated Date : Aug 4 2022")
+    label = tk.Label(aboutUs_root, text = "Creator : Champ (AT - Math) ૮₍ ˃ ⤙ ˂ ₎ა\nWork Chat : Athibadi Wasan\n\nSource code is available on my GitHub\ngithub.com/gcddllcm\n\nCreated Date : Aug 4 2022")
     label.pack(side = tk.LEFT, fill = "both", expand = True)
     
     
-def howTo():
+def instruction():
     #pop-up window
-    howTo_root = tk.Tk()
-    howTo_root.resizable(width = False, height = False)
-    howTo_root.title("How to")
-    howTo_root.geometry("300x300")
-    label = tk.Label(howTo_root, text = "1. Place this file in the same folder as your .jpg files\n2. Put (either type or copy paste) number\nin the empty textbox\n3. Hit \"See Result\"\n4. Hit \"Rename\" button")
+    instruction_root = tk.Tk()
+    instruction_root.resizable(width = False, height = False)
+    instruction_root.title("Instruction")
+    instruction_root.geometry("300x300")
+    label = tk.Label(instruction_root, text = "How to Use\n1. Place this file in the same folder as your .jpg files\n2. Put (either type or copy paste) number\nin the empty textbox line by line\n3. Hit \"See Result\"\n4. Hit \"Rename\" button\n5. The \"Rename\" button will not be clickable\nuntil you click on the \"See Result\" first\n\nWARNING!!\n1. Make sure that you back-up your files\nbefore using this program\n2. Make sure that there are no spaces\nin between your numbers\n3. If you put number of length more than 4,\nthe program will quit automatically")
     label.pack(side = tk.LEFT, fill = "both", expand = True)
 
 
@@ -36,6 +36,7 @@ def rename():
 
 
 def generator_click():
+    __rename["state"] = "normal"
     items = items_input.get("1.0", "end-1c") #retrieve data from the textbox
     items = list(items) #pack it as a list
     new_list_counter = 0
@@ -54,13 +55,10 @@ def generator_click():
     
     #augmentation
     for j in range(0, len(__aspiring), 1):
-        if len(__aspiring[j]) == 1:
-            __aspiring[j] = "000" + __aspiring[j]
-        if len(__aspiring[j]) == 2:
-            __aspiring[j] = "00" + __aspiring[j]
-        if len(__aspiring[j]) == 3:
+        if len(__aspiring[j]) > 4: #preventing the eternal run time when user put the invalid number
+            sys.exit()
+        while len(__aspiring[j]) != 4:
             __aspiring[j] = "0" + __aspiring[j]
-            
         __aspiring[j] += ".jpg"
         
     #pop-up window
@@ -95,15 +93,16 @@ def window():
     generator.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 0, y = 240)
     generator["state"] = "normal"
     
+    global __rename
     __rename = tk.Button(window, text = "Rename", command = rename)
     __rename.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 150, y = 240)
-    __rename["state"] = "normal"
+    __rename["state"] = tk.DISABLED
     
     about_us = tk.Button(window, text = "About Us", command = aboutUs)
     about_us.place(bordermode = tk.OUTSIDE, height = 30, width = 150, x = 150, y = 0)
     
-    how_to = tk.Button(window, text = "How to", command = howTo)
-    how_to.place(bordermode = tk.OUTSIDE, height = 30, width = 150, x = 0, y = 0)
+    __instruction = tk.Button(window, text = "Instruction", command = instruction)
+    __instruction.place(bordermode = tk.OUTSIDE, height = 30, width = 150, x = 0, y = 0)
 
     
     window.mainloop()
