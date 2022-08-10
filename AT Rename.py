@@ -24,8 +24,9 @@ def instruction():
 
 
 def rename():
-    list_dir = os.listdir() #list all files in the current dir
-    list_dir = list(filter(lambda x : x != "AT rename.py", list_dir)) #filtering
+    current_dir = os.getcwd()
+    list_dir = os.listdir(current_dir) #list all files in the current dir
+    list_dir = list(filter(lambda x : x != "AT Rename.py", list_dir)) #filtering
     list_dir = sorted(list_dir) #sorting the list
 
     #start renaming the files
@@ -36,7 +37,6 @@ def rename():
 
 
 def generator_click():
-    __rename["state"] = "normal"
     items = items_input.get("1.0", "end-1c") #retrieve data from the textbox
     items = list(items) #pack it as a list
     new_list_counter = 0
@@ -71,8 +71,6 @@ def generator_click():
     for i in range(0, len(__aspiring), 1) :
         new_list_pop.insert(i, __aspiring[i])
     root.mainloop()
-        
-    print(__aspiring, len(__aspiring))
 
 
 def window():
@@ -96,7 +94,7 @@ def window():
     global __rename
     __rename = tk.Button(window, text = "Rename", command = rename)
     __rename.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 150, y = 240)
-    __rename["state"] = tk.DISABLED
+    __rename["state"] = "normal"
     
     about_us = tk.Button(window, text = "About Us", command = aboutUs)
     about_us.place(bordermode = tk.OUTSIDE, height = 30, width = 150, x = 150, y = 0)
