@@ -19,14 +19,15 @@ def instruction():
     instruction_root.resizable(width = False, height = False)
     instruction_root.title("Instruction")
     instruction_root.geometry("300x300")
-    label = tk.Label(instruction_root, text = "How to Use\n1. Place this file in the same folder as your .jpg files\n2. Put (either type or copy paste) number\nin the empty textbox line by line\n3. Hit \"See Result\"\n4. Hit \"Rename\" button\n5. The \"Rename\" button will not be clickable\nuntil you click on the \"See Result\" first\n\nWARNING!!\n1. Make sure that you back-up your files\nbefore using this program\n2. Make sure that there are no spaces\nin between your numbers\n3. If you put number of length more than 4,\nthe program will quit automatically")
+    label = tk.Label(instruction_root, text = "How to Use\n1. Place this file in the same folder as your .jpg files\n2. Put (either typing or pasting) number\nin the empty textbox line by line\n3. Hit \"See Result\"\n4. Hit \"Rename\" button\n5. The \"Rename\" button will not be clickable\nuntil you click on the \"See Result\" first\n\nWARNING!!\n1. Make sure that you back-up your files\nbefore using this program and familiar with it\n2. Make sure that there are no spaces\nin between your numbers\n3. If you put number of length more than 4,\nthe program will quit automatically\n4. NEVER RENAME THIS FILE")
     label.pack(side = tk.LEFT, fill = "both", expand = True)
 
 
 def rename():
+    __rename["state"] = tk.DISABLED
     current_dir = os.getcwd()
     list_dir = os.listdir(current_dir) #list all files in the current dir
-    list_dir = list(filter(lambda x : x != "AT Rename.py", list_dir)) #filtering
+    list_dir = list(filter(lambda x : x != "AT Rename.exe", list_dir)) #filtering
     list_dir = sorted(list_dir) #sorting the list
 
     #start renaming the files
@@ -37,6 +38,7 @@ def rename():
 
 
 def generator_click():
+    __rename["state"] = "normal"
     items = items_input.get("1.0", "end-1c") #retrieve data from the textbox
     items = list(items) #pack it as a list
     new_list_counter = 0
@@ -94,7 +96,7 @@ def window():
     global __rename
     __rename = tk.Button(window, text = "Rename", command = rename)
     __rename.place(bordermode = tk.OUTSIDE, height = 60, width = 150, x = 150, y = 240)
-    __rename["state"] = "normal"
+    __rename["state"] = tk.DISABLED
     
     about_us = tk.Button(window, text = "About Us", command = aboutUs)
     about_us.place(bordermode = tk.OUTSIDE, height = 30, width = 150, x = 150, y = 0)
